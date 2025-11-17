@@ -2,6 +2,7 @@
 import { Router } from "express";
 import {
   getCasos,
+   getCasoById,
   createCaso,
   updateCaso,
   deleteCaso,
@@ -13,6 +14,8 @@ const router = Router();
 router.use(verifyToken);
 
 router.get("/", getCasos);
+
+router.get("/:id", getCasoById); 
 
 router.post("/", createCaso);
 

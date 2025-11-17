@@ -33,6 +33,25 @@ export const getCasos = async (req: AuthRequest, res: Response) => {
     return errorResponse(res, "Error al obtener los casos", 500);
   }
 };
+export const getCasoById = async (req: AuthRequest, res: Response) => {
+  try {
+    const { id } = req.params;
+    const repo = AppDataSource.getRepository(Caso);
+
+    // Buscar por ID primero
+    const caso = await repo.findOne({ where: { id } });
+    if (!caso || !caso.activo) {
+      return errorResponse(res, "Caso no encontrado", 404);
+    }
+
+    return successResponse(res, "Caso obtenido correctamente", caso);
+  } catch (err) {
+    console.error(err);
+    return errorResponse(res, "Error al obtener el caso", 500);
+  }
+};
+
+
 
 
 export const createCaso = async (req: AuthRequest, res: Response) => {
